@@ -34,7 +34,7 @@ namespace EventsAndDelegates
             };
 
             var p = new EventAlarm(); //Publisher
-            var s = new MakeSound(); //Subscriber
+            var s = new MakeSound(); //Subscriber (could have more).
 
             p.sound += s.soundoff;  // 
             p.sounder();
@@ -50,6 +50,7 @@ namespace EventsAndDelegates
         {
             System.Console.WriteLine(text);
         }
+    //***************************************************************************************
     }
     //***************************************************************************************
     //***************************************************************************************
@@ -71,19 +72,23 @@ namespace EventsAndDelegates
         /* 1 - Define a delegate
            2 - Define an event based on that delegate.
            3 - Raise the event. */
-        public delegate void MyEventHandler(object source, EventArgs args);
-        public event MyEventHandler sound; 
+        //public delegate void MyEventHandler(object source, EventArgs args);
+        public event EventHandler sound; // no need to define a delegate.
         public void sounder()
         {
-            onSoundRequest();
+            onSoundRequest(); //call the virtual function
         }
    //***************************************************************************************
         protected virtual void onSoundRequest()
         {
-            if(sound != null)
+            if(sound != null) //at least one function exists in sound.
             {
-                sound(this,EventArgs.Empty);
+                sound(this,EventArgs.Empty); //just emit the sound.
             }
         }
     }
+    //***************************************************************************************
+    //***************************************************************************************
+    //***************************************************************************************
+    //*************************************************************************************** 
 }
